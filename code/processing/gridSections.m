@@ -1,12 +1,12 @@
 clear
 
-load '~/data/SEA/jpbathy/bathy';
+load '~/data/SEA/jp/jpbathy/bathy';
 ddd = dd;
 
-fold = '~/data/SEA/jpmat/';
+fold = '~/data/SEA/jp/jpmat/';
 files = dirr([fold '*.mat']);
 
-plotfold = "~/Documents/SEA/jp/plots/gridding/";
+plotfold = "~/Documents/SEA/jp/plots/processing/gridding/";
 
 % figure(100),clf
 
@@ -19,7 +19,7 @@ dvec = mind:dd:maxd;
 % distance
 dx = 5;
 minx = 0;
-maxx = 120;
+maxx = 125;
 xvec = minx:dx:maxx;
 
 [X,D] = meshgrid(xvec,dvec);
@@ -56,7 +56,7 @@ for i = 1:length(files)
     
     
     % calculate bounding box
-    xst = 2;
+    xst = 5;
     x1 = min(data.xe);
     x2 = max(data.xe);
     xall = sort(data.xe);
@@ -170,7 +170,7 @@ for i = 1:length(files)
     
     
 %    calculate bounding box
-    xst = 2;
+    xst = 5;
     x1 = min(data.xw);
     x2 = max(data.xw);
     xall = sort(data.xw);
@@ -277,16 +277,19 @@ subplot(3,1,1), hold on
 contourf(xvec,dvec,squeeze(nanmean([Tall_w;Tall_e])),'linestyle','none')
 set(gca,'ydir','reverse')
 fill([ddd.xst ddd.xst(end:-1:1)]',[ddd.dep;repmat(3000,length(ddd.xst),1)],[.5 .5 .5])
+axis([0 125 0 300])
 
 subplot(3,1,2), hold on
 contourf(xvec,dvec,squeeze(nanmean([Sall_w;Sall_e])),'linestyle','none')
 set(gca,'ydir','reverse')
 fill([ddd.xst ddd.xst(end:-1:1)]',[ddd.dep;repmat(3000,length(ddd.xst),1)],[.5 .5 .5])
+axis([0 125 0 300])
 
 subplot(3,1,3), hold on
 contourf(xvec,dvec,squeeze(nanmean([PDall_w;PDall_e])),'linestyle','none')
 set(gca,'ydir','reverse')
 fill([ddd.xst ddd.xst(end:-1:1)]',[ddd.dep;repmat(3000,length(ddd.xst),1)],[.5 .5 .5])
+axis([0 125 0 300])
 
 
 %% save
@@ -324,4 +327,4 @@ bfx = [ddd.xst ddd.xst(end:-1:1)]';
 bfd = [ddd.dep;repmat(3000,length(ddd.xst),1)];
 
 
-save '~/data/SEA/jpgrid/jpgrid' T S PD Tw Sw PDw Te Se PDe xvec dvec yr sec bx bd bfx bfd
+save '~/data/SEA/jp/jpgrid/jpgrid' T S PD Tw Sw PDw Te Se PDe xvec dvec yr sec bx bd bfx bfd

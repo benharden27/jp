@@ -2,7 +2,7 @@
 clear
 
 
-fold = '~/data/SEA/jpdata_edit/';
+fold = '~/data/SEA/jp/jpdata_edit/';
 
 subfolds = dirr([fold 'C*']);
 
@@ -28,64 +28,66 @@ for i = 1:length(subfolds)
     files = dirr([fold ID '/csv/*.csv']);
     ord = 1:size(files,1);
     if ID == 'C187B'
-        w = [1 7];
-        c = [7 12];
-        e = [12 size(files,1)];
+        w = [1:4 6:7];
+        c = [7:12];
+        e = [12:size(files,1)];
     end
     if ID == 'C193A'
-        w = [1 9];
-        c = [9,12];
-        e = [12 size(files,1)];
+        w = [1:9];
+        c = [9:12];
+        e = [12:size(files,1)];
     end
     if ID == 'C199A'
-        w = [1,7];
-        c = [7,11];
-        e = [12,size(files,1)];
+        w = [1:7];
+        c = [7:11];
+        e = [12:size(files,1)];
     end
     if ID == 'C205G'
-        w = [1,7];
-        c = [7,12];
-        e = [12,size(files,1)];
+        w = [1:7];
+        c = [7:12];
+%         e = [12,size(files,1)]; %This include station #6 which seems to
+%         be idential to station #8.
+        e = [12:16]; % This removes station #6
         ord = [2,6:17,4,5,3,1];
     end
     if ID == 'C211A'
         ord = [1:12,14,13,15:19];
         ord = ord(end:-1:1);
-        w = [1,8];
-        c = [8,14];
-        e = [14,size(files,1)];
+        w = [1:8];
+        c = [8:14];
+        e = [14:size(files,1)];
     end
     if ID == 'C218A'
-        w = [1,8];
-        c = [8,13];
-        e = [14,size(files,1)];
+        w = [1:8];
+        c = [8:13];
+        e = [14:size(files,1)];
         ord = [2 1 3:size(files,1)];
     end
     if ID == 'C223A'
-        w = [1,7];
-        c = [7,12];
-        e = [12,size(files,1)];
+        w = [1:7];
+        c = [7:12];
+        e = [12:size(files,1)];
     end
     if ID == 'C230A'
         w = [];
         c = [];
-        e = [1,size(files,1)];
+        e = [1:size(files,1)];
     end
     if ID == 'C235A'
-        w = [1,5];
-        c = [5,9];
-        e = [9,size(files,1)];
+        w = [1:5];
+        c = [5:9];
+        e = [9:size(files,1)];
         ord = [1:13,15,14];
     end
     if ID == 'C241A'
-        w = [1,9];
-        c = [9,12];
-        e = [12,size(files,1)];
+        w = [1:9];
+        c = [9:12];
+        e = [12:size(files,1)];
     end
     if ID == 'C248B'
-        w = [1,8];
-        c = [8,13];
-        e = [13,size(files,1)];
+        w = [1:8];
+        c = [8:13];
+        e = [13:size(files,1)];
     end
     
     data = importdata([fold ID '/' ID 'lonlat.csv']);
@@ -144,29 +146,29 @@ for i = 1:length(subfolds)
     X = [0 cumsum(sw_dist(lat,lon,'km'))'];
     
     if(~isempty(w) && ~isempty(c))
-        Tw = T(:,ord(w(1):w(2)));
-        Tc = T(:,ord(c(1):c(2)));
-        Sw = S(:,ord(w(1):w(2)));
-        Sc = S(:,ord(c(1):c(2)));
-        PDw = PD(:,ord(w(1):w(2)));
-        PDc = PD(:,ord(c(1):c(2)));
-        Xw = X(w(1):w(2));
-        Xc = X(c(1):c(2));
+        Tw = T(:,ord(w));
+        Tc = T(:,ord(c));
+        Sw = S(:,ord(w));
+        Sc = S(:,ord(c));
+        PDw = PD(:,ord(w));
+        PDc = PD(:,ord(c));
+        Xw = X(w);
+        Xc = X(c);
         Xc = Xc - Xc(1);
-        lonw = lon(w(1):w(2));
-        lonc = lon(c(1):c(2));
-        latw = lat(w(1):w(2));
-        latc = lat(c(1):c(2));
+        lonw = lon(w);
+        lonc = lon(c);
+        latw = lat(w);
+        latc = lat(c);
 
     end
     
-    Te = T(:,ord(e(1):e(2)));
-    Se = S(:,ord(e(1):e(2)));
-    PDe = PD(:,ord(e(1):e(2)));
-    Xe = X(e(1):e(2));  
+    Te = T(:,ord(e));
+    Se = S(:,ord(e));
+    PDe = PD(:,ord(e));
+    Xe = X(e);  
     Xe = Xe(end)-Xe;
-    lone = lon(e(1):e(2));
-    late = lat(e(1):e(2));
+    lone = lon(e);
+    late = lat(e);
     
     Te = Te(:,size(Te,2):-1:1);
     Se = Se(:,size(Se,2):-1:1);
@@ -261,7 +263,7 @@ for i = 1:length(subfolds)
 %         set(gca,'ylim',[0 200],'ydir','reverse')
 %         colorbar
 %     end
-    save(['~/data/SEA/jpmat/' ID],'data')
+    save(['~/data/SEA/jp/jpmat/' ID],'data')
 %    
    DEP = [DEP dep'];
    LON = [LON lon'];
@@ -290,4 +292,4 @@ plot(xst,smooth(DEPi,20),'r')
 
 dd.xst = xst;
 dd.dep = smooth(DEPi,20);
-save(['~/data/SEA/jpbathy/bathy'],'dd')
+save(['~/data/SEA/jp/jpbathy/bathy'],'dd')

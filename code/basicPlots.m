@@ -1,12 +1,17 @@
 clear
 
+foldRoot = '~/Documents/SEA/jp/';
+
+% set upi save folder for plots
+saveFold = [foldRoot 'plots/'];
+
 % load the gridded data
 load ../data/jpgrid/jpgrid.mat
 
 %% Basic Plots of the mean and std
 
 figure
-subplot(2,3,1), hold on
+subplot(3,2,1), hold on
 contourf(xvec,dvec,squeeze(nanmean(T)),-2:0.5:30,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
@@ -14,7 +19,7 @@ axis([30 120 0 300])
 title('Temperature mean')
 colorbar
 
-subplot(2,3,2), hold on
+subplot(3,2,3), hold on
 contourf(xvec,dvec,squeeze(nanmean(S)),30:0.2:36,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
@@ -22,7 +27,7 @@ axis([30 120 0 300])
 title('Salinity mean')
 colorbar
 
-subplot(2,3,3), hold on
+subplot(3,2,5), hold on
 contourf(xvec,dvec,squeeze(nanmean(PD)),20:0.1:30,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
@@ -30,7 +35,7 @@ axis([30 120 0 300])
 title('Density mean')
 colorbar
 
-subplot(2,3,4), hold on
+subplot(3,2,2), hold on
 contourf(xvec,dvec,squeeze(nanstd(T)),0:0.2:5,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
@@ -38,7 +43,7 @@ axis([30 120 0 300])
 title('Temperature std')
 colorbar
 
-subplot(2,3,5), hold on
+subplot(3,2,4), hold on
 contourf(xvec,dvec,squeeze(nanstd(S)),0:0.05:1,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
@@ -46,7 +51,7 @@ axis([30 120 0 300])
 title('Salinity std')
 colorbar
 
-subplot(2,3,6), hold on
+subplot(3,2,6), hold on
 contourf(xvec,dvec,squeeze(nanstd(PD)),0:0.01:.5,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
@@ -54,7 +59,8 @@ axis([30 120 0 300])
 title('Density std')
 colorbar
 
-print('../plots/meanSections.png','-dpng')
+print_fig('meanSections',saveFold,1,1)
+
 %% TS plots
 for i = 1:2:size(T,1)
     Td((i+1)/2,:) = [T(i,:) T(i+1,:)];
@@ -67,18 +73,18 @@ plot(Sd(2,:),Td(2,:),'r.')
 plot(Sd(11,:),Td(11,:),'b.')
 axis([31 37 4 23])
 
-print('../plots/allTS.png','-dpng')
+print_fig('allTS',saveFold,1,1)
 
 %% Example sections
-s1 = 2;
-s2 = 11;
+s1 = 1:3;
+s2 = 9:11;
 Tcax = [4 22];
 Scax = [32 35.5];
 PDcax = [22 27.3];
 
 figure
-subplot(2,3,1), hold on
-contourf(xvec,dvec,squeeze(Te(s1,:,:)),-2:0.5:30,'linestyle','none')
+subplot(3,2,1), hold on
+contourf(xvec,dvec,squeeze(nanmean(Te(s1,:,:),1)),-2:0.5:30,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
 axis([30 120 0 300])
@@ -86,8 +92,8 @@ title('Temperature 2004')
 caxis(Tcax)
 colorbar
 
-subplot(2,3,2), hold on
-contourf(xvec,dvec,squeeze(Se(s1,:,:)),30:0.2:36,'linestyle','none')
+subplot(3,2,3), hold on
+contourf(xvec,dvec,squeeze(nanmean(Se(s1,:,:),1)),30:0.2:36,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
 axis([30 120 0 300])
@@ -95,8 +101,8 @@ title('Salinity 2004')
 caxis(Scax)
 colorbar
 
-subplot(2,3,3), hold on
-contourf(xvec,dvec,squeeze(PDe(s1,:,:)),20:0.1:30,'linestyle','none')
+subplot(3,2,5), hold on
+contourf(xvec,dvec,squeeze(nanmean(PDe(s1,:,:),1)),20:0.1:30,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
 axis([30 120 0 300])
@@ -105,8 +111,8 @@ caxis(PDcax)
 colorbar
 
 
-subplot(2,3,4), hold on
-contourf(xvec,dvec,squeeze(Te(s2,:,:)),-2:0.5:30,'linestyle','none')
+subplot(3,2,2), hold on
+contourf(xvec,dvec,squeeze(nanmean(Te(s2,:,:),1)),-2:0.5:30,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
 axis([30 120 0 300])
@@ -114,8 +120,8 @@ title('Temperature 2013')
 caxis([Tcax])
 colorbar
 
-subplot(2,3,5), hold on
-contourf(xvec,dvec,squeeze(Se(s2,:,:)),30:0.2:36,'linestyle','none')
+subplot(3,2,4), hold on
+contourf(xvec,dvec,squeeze(nanmean(Se(s2,:,:),1)),30:0.2:36,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
 axis([30 120 0 300])
@@ -123,8 +129,8 @@ title('Salinity 2013')
 caxis(Scax)
 colorbar
 
-subplot(2,3,6), hold on
-contourf(xvec,dvec,squeeze(PDe(s2,:,:)),20:0.1:30,'linestyle','none')
+subplot(3,2,6), hold on
+contourf(xvec,dvec,squeeze(nanmean(PDe(s2,:,:),1)),20:0.1:30,'linestyle','none')
 set(gca,'ydir','reverse')
 fill(bfx,bfd,[.5 .5 .5])
 axis([30 120 0 300])
@@ -132,7 +138,7 @@ title('Density 2013')
 caxis(PDcax)
 colorbar
 
-print('../plots/exampleSections.png','-dpng')
+print_fig('exampleSections',saveFold,1,1)
 
 %% Process data for inshore trends
 % for the shelf, loop through all sections and extract the innermost
@@ -453,6 +459,49 @@ plot([2003 2013],polyval(P,[2003,2013]),'r')
 title('Cold Pool Density') 
   
 print('../plots/coldPoolTrend.png','-dpng')
+
+%% Cold pool temp more general
+Tthr = 10;
+Sthr = 34;
+
+for i = 2:size(T,1)
+    Ti = squeeze(T(i,:,:));
+    Si = squeeze(S(i,:,:));
+    PDi = squeeze(PD(i,:,:));
+    if(isnan(nanmean(Ti(:))))
+        Tcp(i) = nan;
+        Scp(i) = nan;
+        PDcp(i) = nan;
+    end
+    loci = Ti<12 & Si <34;
+    Scp(i) = nanmean(Si(loci));
+    Tcp(i) = nanmean(Ti(loci));
+    PDcp(i) = nanmean(PDi(loci));
+end
+figure
+
+subplot(3,1,1), hold on
+plot(yr,Tcp,'k.')
+goodi = ~isnan(Tcp);
+P = polyfit(yr(goodi),Tcp(goodi),1);
+plot([2003 2013],polyval(P,[2003,2013]),'r')
+title('Cold Pool Temperature') 
+
+subplot(3,1,2), hold on
+plot(yr,Scp,'k.')
+goodi = ~isnan(Scp);
+P = polyfit(yr(goodi),Scp(goodi),1);
+plot([2003 2013],polyval(P,[2003,2013]),'r')
+title('Cold Pool Salinity') 
+
+
+subplot(3,1,3), hold on
+plot(yr,PDcp,'k.')
+goodi = ~isnan(PDcp);
+P = polyfit(yr(goodi),PDcp(goodi),1);
+plot([2003 2013],polyval(P,[2003,2013]),'r')
+title('Cold Pool Density') 
+  
 
 %% Slope water
 d1 = find(dvec==100);
