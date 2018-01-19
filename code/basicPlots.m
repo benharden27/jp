@@ -194,7 +194,7 @@ P = polyfit(yr(goodi),PDbar(goodi),1);
 plot([2003 2013],polyval(P,[2003,2013]),'r')
 title('Depth mean Density inshore of 100 m Isobath') 
   
-print('../plots/shelfDepthMeanTrend.png','-dpng')
+print_fig('shelfDepthMeanTrend',saveFold,1,1)
 
 %% Plot the mean profiles as a time series
 figure
@@ -265,7 +265,7 @@ legend(h,legendtext)
 title('Density trends')
 
 
-print('../plots/shelfDepthTrends.png','-dpng')
+print_fig('shelfDepthTrends',saveFold,1,1)
 
 %% plot the property trends as a function of depth
 
@@ -305,7 +305,7 @@ ylim([0 50])
 xlabel('kg/m-3/yr')
 title('Trend in density over time with depth')
 
-print('../plots/shelfTrendsAsDepth.png','-dpng')
+print_fig('TrendsAsDepth',saveFold,1,1)
 
 
 %% Plot property trends for all locations in section
@@ -405,7 +405,7 @@ colorbar
 load('cm_midwhite')
 colormap(cm_midwhite)
 
-print('../plots/trendsAllLocs.png','-dpng')
+print_fig('trendsAllLocs',saveFold,1,1)
 
 
 %% Change in density gradient over time
@@ -458,7 +458,7 @@ P = polyfit(yr(goodi),PDcp(goodi),1);
 plot([2003 2013],polyval(P,[2003,2013]),'r')
 title('Cold Pool Density') 
   
-print('../plots/coldPoolTrend.png','-dpng')
+print_fig('coldPoolTrend',saveFold,1,1)
 
 %% Cold pool temp more general
 Tthr = 10;
@@ -548,7 +548,7 @@ P = polyfit(yr(goodi),PDsl(goodi),1);
 plot([2003 2013],polyval(P,[2003,2013]),'r')
 title('Slope Water Density') 
   
-print('../plots/slopeWaterTrend.png','-dpng')
+print_fig('slopeWaterTrend',saveFold,1,1)
 
 
 %% slope and cold pool on same plot
@@ -592,7 +592,7 @@ plot([2003 2013],polyval(P,[2003,2013]),'r')
 
 title('Density (CP = black, Slope = red)') 
 
-print('../plots/slopeColdPoolTrend.png','-dpng')
+print_fig('slopeColdPoolTrend',saveFold,1,1)
 
 
 %% test trend sig

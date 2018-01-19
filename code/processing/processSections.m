@@ -30,7 +30,7 @@ for i = 1:length(subfolds)
     if ID == 'C187B'
         w = [1:4 6:7];
         c = [7:12];
-        e = [12:size(files,1)];
+        e = [13:size(files,1)];
     end
     if ID == 'C193A'
         w = [1:9];
@@ -232,9 +232,6 @@ for i = 1:length(subfolds)
     for j = 1:length(data.late)
         ii = findnear(latvec,data.late(j));
         data.xe(j) = xvec(ii);
-        if j == length(data.late) && i == 1
-            data.xe(j) = data.xe(j-1)+1;
-        end
     end
 
     if(isfield(data,'lonw'))

@@ -5,7 +5,7 @@ library(sea)
 load("~/Documents/projects/SEA/data/etopo5")
 
 rootfold <- "~/data/SEA/CTDdata"
-mvfold <- "~/data/SEA/jpdata"
+mvfold <- "~/data/SEA/jp/jpdata"
 cruiseIDs <- c("C187bcdefg","C193","C199A","C205FGHI","C211A","C216A-EandC218AWHOI-MIT","C223AWHOI_MIT","C230a","C235AWHOI_MIT","C241A","C248B")
 cruiseIDs2 <- c("C187B","C193A","C199A","C205G","C211A","C218A","C223A","C230A","C235A","C241A","C248B")
 plotfold <- "~/Documents/SEA/jp/plots/SEAarchive"

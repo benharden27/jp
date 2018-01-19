@@ -10,7 +10,7 @@ library(wordcloud)
 data(coastlineWorldFine)
 
 
-rootfold <- "~/data/SEA/jpdata_edit"
+rootfold <- "~/data/SEA/jp/jpdata_edit"
 cruiseIDs <- c("C187B","C193A","C199A","C205G","C211A","C218A","C223A","C230A","C235A","C241A","C248B")
 plotfold <- "~/Documents/SEA/jp/plots/SEAarchive_edit"
 
